@@ -1,1 +1,86 @@
-@import 'tailwindcss'
+@import "tailwindcss";
+
+/*
+  Design tokens for Kingston Complex.
+  Fonts are loaded via <link> tags in index.html:
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+*/
+@theme {
+  /* Brand palette — deep teal (trust, hospitality) + warm amber (highway sunset, warmth) */
+  --color-brand-950: #042f2e;
+  --color-brand-900: #0c3d3a;
+  --color-brand-800: #115e59;
+  --color-brand-700: #147a72;
+
+  --color-accent-400: #fbbf5c;
+  --color-accent-500: #f5a623;
+  --color-accent-600: #d98a12;
+
+  /* Neutrals kept warm, not clinical grey */
+  --color-neutral-50: #faf9f6;
+  --color-neutral-100: #f2f0ea;
+  --color-neutral-200: #e3dfd4;
+  --color-neutral-400: #9c9788;
+  --color-neutral-600: #5f5b4e;
+  --color-neutral-900: #262319;
+
+  /* Typography roles */
+  --font-display: "Baloo 2", ui-rounded, sans-serif;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-neutral-900);
+    background-color: var(--color-neutral-50);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 md:px-10;
+  }
+
+  .overline {
+    @apply text-[color:var(--color-accent-600)] text-sm font-semibold tracking-widest uppercase mb-3;
+  }
+
+  .section-heading {
+    @apply text-3xl md:text-4xl text-[color:var(--color-neutral-900)] mb-4;
+  }
+
+  .section-heading-white {
+    @apply text-3xl md:text-4xl text-white mb-4;
+  }
+
+  .btn-primary {
+    @apply bg-[color:var(--color-accent-500)] hover:bg-[color:var(--color-accent-600)]
+           text-[color:var(--color-brand-950)] font-semibold px-6 py-3 rounded-full
+           transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-[color:var(--color-brand-800)] hover:bg-[color:var(--color-brand-900)]
+           text-white font-semibold px-6 py-3 rounded-full
+           transition-colors duration-200;
+  }
+
+  .btn-outline-light {
+    @apply border-2 border-white/50 hover:bg-white/10 text-white font-semibold
+           px-6 py-3 rounded-full transition-colors duration-200;
+  }
+}
