@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Hero from "../components/sections/Hero";
+import HeroSingle from "../components/sections/HeroSingle";
+import HeroCollage from "../components/sections/HeroCollage";
 
 /**
- * Homepage. Sections (About, Highlights, teasers, Reviews, Location,
- * etc.) get added below Hero one at a time as we build each one.
+ * Homepage. TEMP: both hero candidates are stacked below for side-by-side
+ * comparison — pick one, then delete this comment, the losing component
+ * file, and the unused import + label.
  *
- * Also handles the case where a hash link (About / Reviews / Contact)
- * was clicked from a different page: Navbar navigates here and passes
- * the target hash via router state, and this effect scrolls to it once
- * the page has painted.
+ * Sections (About, Highlights, teasers, Reviews, Location, etc.) get
+ * added below the hero as we build each one.
  */
 export default function Home() {
   const location = useLocation();
@@ -29,7 +29,20 @@ export default function Home() {
 
   return (
     <>
-      <Hero />
+      <div className="relative">
+        <span className="absolute top-24 right-4 z-50 bg-black text-white text-xs font-mono px-2 py-1 rounded">
+          OPTION A — full photo
+        </span>
+        <HeroSingle />
+      </div>
+
+      <div className="relative">
+        <span className="absolute top-24 right-4 z-50 bg-black text-white text-xs font-mono px-2 py-1 rounded">
+          OPTION B — collage
+        </span>
+        <HeroCollage />
+      </div>
+
       {/* About, Highlights, Accommodation teaser, Conference teaser,
           Restaurant teaser, Bar teaser, Why Us, Reviews, Location —
           added here as we build each one. */}
