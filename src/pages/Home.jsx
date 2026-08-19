@@ -4,6 +4,7 @@ import Hero from "../components/sections/Hero";
 import About from "../components/sections/About";
 import Highlights from "../components/sections/Highlights";
 import Accommodation from "../components/sections/Accomodations";
+import Conference from "../components/sections/Conference";
 
 /**
  * Homepage. Sections (About, Highlights, teasers, Reviews, Location,
@@ -36,6 +37,7 @@ export default function Home() {
       <About />
       <Highlights/>
       <Accommodation/>
+      <Conference/>
       {/* Highlights, Accommodation teaser, Conference teaser,
           Restaurant teaser, Bar teaser, Why Us, Reviews, Location —
           added here as we build each one. */}

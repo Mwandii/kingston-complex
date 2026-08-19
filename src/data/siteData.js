@@ -85,6 +85,22 @@ export const highlights = [
   { icon: "parking", label: "Secure on-site parking" },
 ];
 
+export const conference = {
+  badge: "Conference hall",
+  heading: "Space to meet, train or celebrate",
+  subheading:
+    "Seats up to 120 guests, with equipment and catering add-ons available depending on what the event needs.",
+  capacity: "120 guests",
+  addOns: ["Projector", "PA system", "Water", "Soda", "Full catering"],
+  ctaLabel: "Get a quote",
+  ctaHref: "/conference",
+  // Unsplash — free for commercial use, no attribution required.
+  image: {
+    url: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=1000&q=80",
+    alt: "The conference hall at Kingston Complex",
+  },
+};
+
 export const accommodation = {
   badge: "Accommodation",
   heading: "A room for every kind of stay",

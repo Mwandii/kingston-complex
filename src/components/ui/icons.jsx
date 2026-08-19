@@ -128,3 +128,14 @@ export function IconWater({ className = "w-4 h-4" }) {
     </svg>
   );
 }
+
+export function IconUsers({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" />
+      <path d="M16 8.5a3 3 0 1 1 0-6" />
+      <path d="M17.5 14.3c2.5.5 4 2.5 4 5.7" />
+    </svg>
+  );
+}
