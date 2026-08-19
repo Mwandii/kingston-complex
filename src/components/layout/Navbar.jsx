@@ -70,7 +70,7 @@ export default function Navbar() {
           {brand.name}
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <nav aria-label="Primary" className="hidden md:flex items-center gap-8 text-sm text-black font-medium">
           {navLinks.map((link) =>
             link.type === "route" ? (
               <Link key={link.href} to={link.href} className="opacity-90 hover:opacity-100 transition-opacity">
