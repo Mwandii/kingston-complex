@@ -55,17 +55,17 @@ export const about = {
   ],
   values: [
     {
-      icon: "🛏️",
+      icon: "bed",
       title: "One roof, everything you need",
       text: "A room, a meal, a meeting space and a drink — no need to go anywhere else.",
     },
     {
-      icon: "🤝",
+      icon: "heart",
       title: "Warm, personal service",
       text: "Small enough to know your name, ready enough to host your event.",
     },
     {
-      icon: "🚚",
+      icon: "truck",
       title: "Built for the road",
       text: "Secure parking and an easy stop between Nairobi and Mombasa.",
     },
@@ -79,8 +79,54 @@ export const about = {
 };
 
 export const highlights = [
-  { icon: "💳", label: "M-Pesa & card accepted" },
-  { icon: "📶", label: "Free WiFi throughout" },
-  { icon: "🕐", label: "24/7 reception" },
-  { icon: "🅿️", label: "Secure on-site parking" },
+  { icon: "card", label: "M-Pesa & card accepted" },
+  { icon: "wifi", label: "Free WiFi throughout" },
+  { icon: "clock", label: "24/7 reception" },
+  { icon: "parking", label: "Secure on-site parking" },
 ];
+
+export const accommodation = {
+  badge: "Accommodation",
+  heading: "A room for every kind of stay",
+  subheading:
+    "Three tiers, all with hot showers — pick what suits the trip, from a quick overnight stop to a longer stay.",
+  viewAllHref: "/rooms",
+  rooms: [
+    {
+      id: "standard",
+      name: "Standard",
+      price: "KSh 1,000",
+      priceUnit: "/ night",
+      image: {
+        url: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+        alt: "Standard room at Kingston Complex",
+      },
+      amenities: ["shower", "water"],
+      featured: false,
+    },
+    {
+      id: "deluxe",
+      name: "Deluxe",
+      price: "KSh 2,000",
+      priceUnit: "/ night",
+      image: {
+        url: "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&w=800&q=80",
+        alt: "Deluxe room at Kingston Complex",
+      },
+      amenities: ["shower", "tv", "coffee"],
+      featured: true,
+    },
+    {
+      id: "executive",
+      name: "Executive",
+      price: "KSh 3,500",
+      priceUnit: "/ night",
+      image: {
+        url: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
+        alt: "Executive room at Kingston Complex",
+      },
+      amenities: ["shower", "tv", "coffee", "desk"],
+      featured: false,
+    },
+  ],
+};

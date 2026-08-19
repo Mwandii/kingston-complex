@@ -1,6 +1,13 @@
 import { about } from "../../data/siteData";
 import FadeIn from "../ui/FadeIn";
 import Badge from "../ui/Badge";
+import { IconBed, IconHeart, IconTruck } from "../ui/icons";
+
+const iconMap = {
+  bed: IconBed,
+  heart: IconHeart,
+  truck: IconTruck,
+};
 
 /**
  * About section. Deliberately simpler than Hero — one framed photo
@@ -43,22 +50,25 @@ export default function About() {
           </div>
 
           <div className="space-y-5">
-            {about.values.map((value, index) => (
-              <FadeIn direction="up" delay={300 + index * 80} key={value.title}>
-                <div className="flex items-start gap-4">
-                  <span
-                    className="w-10 h-10 shrink-0 rounded-full bg-[color:var(--color-brand-800)]/5 flex items-center justify-center text-lg"
-                    aria-hidden="true"
-                  >
-                    {value.icon}
-                  </span>
-                  <div>
-                    <p className="font-semibold text-[color:var(--color-neutral-900)]">{value.title}</p>
-                    <p className="text-sm text-[color:var(--color-neutral-600)]">{value.text}</p>
+            {about.values.map((value, index) => {
+              const Icon = iconMap[value.icon];
+              return (
+                <FadeIn direction="up" delay={300 + index * 80} key={value.title}>
+                  <div className="flex items-start gap-4">
+                    <span
+                      className="w-10 h-10 shrink-0 rounded-full bg-[color:var(--color-brand-800)]/5 flex items-center justify-center text-[color:var(--color-brand-800)]"
+                      aria-hidden="true"
+                    >
+                      <Icon className="w-5 h-5" />
+                    </span>
+                    <div>
+                      <p className="font-semibold text-[color:var(--color-neutral-900)]">{value.title}</p>
+                      <p className="text-sm text-[color:var(--color-neutral-600)]">{value.text}</p>
+                    </div>
                   </div>
-                </div>
-              </FadeIn>
-            ))}
+                </FadeIn>
+              );
+            })}
           </div>
         </div>
       </div>

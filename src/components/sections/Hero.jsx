@@ -3,6 +3,7 @@ import { scrollToSection } from "../../utils/scrollToSection";
 import FadeIn from "../ui/FadeIn";
 import Badge from "../ui/Badge";
 import HeroStats from "../ui/HeroStats";
+import { IconPin } from "../ui/icons";
 
 /**
  * Hero. Warm light background, copy on one side, a layered collage of
@@ -26,7 +27,9 @@ export default function Hero() {
         {/* Copy column */}
         <div className="max-w-xl">
           <FadeIn direction="up">
-            <Badge tone="dark">📍 {hero.eyebrow}</Badge>
+            <Badge tone="dark">
+              <IconPin className="w-3.5 h-3.5" /> {hero.eyebrow}
+            </Badge>
           </FadeIn>
 
           <FadeIn direction="up" delay={100}>
