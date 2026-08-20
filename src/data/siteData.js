@@ -85,6 +85,25 @@ export const highlights = [
   { icon: "parking", label: "Secure on-site parking" },
 ];
 
+export const restaurant = {
+  badge: "Restaurant",
+  heading: "Cooked fresh, served daily",
+  subheading: "Browse the menu, then call or send a WhatsApp message to place an order.",
+  menuPreview: [
+    { name: "Ugali & beef stew", price: "KSh 350" },
+    { name: "Pilau with kachumbari", price: "KSh 400" },
+    { name: "Grilled chicken & chips", price: "KSh 500" },
+    { name: "Fish fillet & rice", price: "KSh 450" },
+  ],
+  ctaLabel: "View full menu",
+  ctaHref: "/restaurant",
+  // Unsplash — free for commercial use, no attribution required.
+  image: {
+    url: "https://images.unsplash.com/photo-1606728035253-49e8a23146de?auto=format&fit=crop&w=1000&q=80",
+    alt: "A dish served at the Kingston Complex restaurant",
+  },
+};
+
 export const conference = {
   badge: "Conference hall",
   heading: "Space to meet, train or celebrate",
