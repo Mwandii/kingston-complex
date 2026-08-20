@@ -25,6 +25,18 @@ export default function Restaurant() {
           <p className="text-[color:var(--color-neutral-600)] mb-8">{restaurantPage.subheading}</p>
         </FadeIn>
 
+        <FadeIn direction="up" delay={175}>
+          <div className="rounded-3xl overflow-hidden shadow-xl aspect-[16/9] mb-10">
+            <img
+              src={restaurantPage.bannerImage.url}
+              alt={restaurantPage.bannerImage.alt}
+              loading="eager"
+              className="w-full h-full object-cover"
+              onError={(event) => (event.currentTarget.style.display = "none")}
+            />
+          </div>
+        </FadeIn>
+
         <FadeIn direction="up" delay={200}>
           <div className="flex flex-wrap gap-3 mb-12">
             <a
@@ -48,11 +60,31 @@ export default function Restaurant() {
                 <h2 className="text-lg font-semibold text-[color:var(--color-neutral-900)] mb-4">
                   {section.category}
                 </h2>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {section.items.map((item) => (
-                    <MenuRow key={item.name} name={item.name} price={item.price} />
-                  ))}
-                </div>
+
+                {section.image ? (
+                  <div className="grid sm:grid-cols-2 gap-6 items-center">
+                    <div className="rounded-2xl overflow-hidden shadow-md aspect-[4/3] order-2 sm:order-1">
+                      <img
+                        src={section.image.url}
+                        alt={section.image.alt}
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                        onError={(event) => (event.currentTarget.style.display = "none")}
+                      />
+                    </div>
+                    <div className="grid gap-3 order-1 sm:order-2">
+                      {section.items.map((item) => (
+                        <MenuRow key={item.name} name={item.name} price={item.price} />
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {section.items.map((item) => (
+                      <MenuRow key={item.name} name={item.name} price={item.price} />
+                    ))}
+                  </div>
+                )}
               </div>
             </FadeIn>
           ))}

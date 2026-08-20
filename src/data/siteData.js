@@ -169,6 +169,11 @@ export const restaurantPage = {
   badge: "Restaurant",
   heading: "Full menu",
   subheading: "Call or message on WhatsApp to place an order — no need to come in first.",
+  // Unsplash — free for commercial use, no attribution required.
+  bannerImage: {
+    url: "https://images.unsplash.com/photo-1606728035253-49e8a23146de?auto=format&fit=crop&w=1400&q=80",
+    alt: "A dish served at the Kingston Complex restaurant",
+  },
   menu: [
     {
       category: "Breakfast",
@@ -180,6 +185,10 @@ export const restaurantPage = {
     },
     {
       category: "Mains",
+      image: {
+        url: "https://images.unsplash.com/photo-1634324092526-91f5e878b72f?auto=format&fit=crop&w=900&q=80",
+        alt: "Pilau rice with meat and vegetables",
+      },
       items: [
         { name: "Ugali & beef stew", price: "KSh 350" },
         { name: "Pilau with kachumbari", price: "KSh 400" },
@@ -200,6 +209,48 @@ export const restaurantPage = {
       category: "Drinks (non-alcoholic)",
       items: [
         { name: "Soda", price: "KSh 80" },
+        { name: "Fresh juice", price: "KSh 150" },
+        { name: "Water (500ml)", price: "KSh 50" },
+      ],
+    },
+  ],
+};
+
+export const barPage = {
+  badge: "Bar",
+  heading: "Drinks menu & private events",
+  subheading: "Full menu below. Hosting a private function? Reserve the whole bar for your group.",
+  bannerImage: {
+    url: "https://images.unsplash.com/photo-1759164707340-cca5eb4a6d42?auto=format&fit=crop&w=1400&q=80",
+    alt: "Two glasses of beer on the bar counter at Kingston Complex",
+  },
+  reserveImage: {
+    url: "https://images.unsplash.com/photo-1761936513630-7553a70f292c?auto=format&fit=crop&w=900&q=80",
+    alt: "The bar counter at Kingston Complex",
+  },
+  menu: [
+    {
+      category: "Beers",
+      items: [
+        { name: "Tusker", price: "KSh 250" },
+        { name: "White Cap", price: "KSh 250" },
+        { name: "Guinness", price: "KSh 300" },
+        { name: "Tusker Cider", price: "KSh 300" },
+      ],
+    },
+    {
+      category: "Spirits & cocktails",
+      items: [
+        { name: "Whisky (single)", price: "KSh 300" },
+        { name: "Vodka (single)", price: "KSh 300" },
+        { name: "Gin & tonic", price: "KSh 350" },
+        { name: "Cocktail of the day", price: "KSh 400" },
+      ],
+    },
+    {
+      category: "Soft drinks & water",
+      items: [
+        { name: "Soda (500ml)", price: "KSh 80" },
         { name: "Fresh juice", price: "KSh 150" },
         { name: "Water (500ml)", price: "KSh 50" },
       ],
