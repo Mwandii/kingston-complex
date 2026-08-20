@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { brand, navLinks } from "../../data/siteData";
 import { useScrollPosition } from "../../hooks/useScrollPosition";
-import { scrollToSection } from "../../utils/scrollToSection";
+import { useHashNav } from "../../hooks/useHashNav";
 
 /**
  * Site navigation. On the homepage it starts transparent over the hero
@@ -15,10 +15,8 @@ import { scrollToSection } from "../../utils/scrollToSection";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isScrolled = useScrollPosition(24);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { handleHashClick, isHome } = useHashNav();
 
-  const isHome = location.pathname === "/";
   const showSolidSurface = isScrolled || !isHome;
 
   useEffect(() => {
@@ -45,17 +43,10 @@ export default function Navbar() {
   }, []);
 
   /**
-   * Handles a hash nav link (About / Reviews / Contact). If we're
-   * already on the homepage, scroll directly. Otherwise navigate home
-   * and pass the target hash via router state — Home reads it on mount.
+   * Wraps the shared hash-nav handler with closing the mobile menu.
    */
-  const handleHashClick = (event, href) => {
-    if (isHome) {
-      scrollToSection(event, href);
-    } else {
-      event.preventDefault();
-      navigate("/", { state: { scrollTo: href } });
-    }
+  const onHashLinkClick = (event, href) => {
+    handleHashClick(event, href);
     setIsMenuOpen(false);
   };
 
@@ -66,11 +57,11 @@ export default function Navbar() {
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-colors duration-300 ${surfaceClasses}`}>
       <div className="section-container flex items-center justify-between py-4">
-        <Link to="/" className="font-display text-xl text-black font-semibold tracking-wide">
+        <Link to="/" className="font-display text-xl font-semibold tracking-wide">
           {brand.name}
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:flex items-center gap-8 text-sm text-black font-medium">
+        <nav aria-label="Primary" className="hidden md:flex items-center gap-8 text-sm font-medium">
           {navLinks.map((link) =>
             link.type === "route" ? (
               <Link key={link.href} to={link.href} className="opacity-90 hover:opacity-100 transition-opacity">
@@ -80,7 +71,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(event) => handleHashClick(event, link.href)}
+                onClick={(event) => onHashLinkClick(event, link.href)}
                 className="opacity-90 hover:opacity-100 transition-opacity"
               >
                 {link.label}
@@ -146,7 +137,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(event) => handleHashClick(event, link.href)}
+                onClick={(event) => onHashLinkClick(event, link.href)}
                 className="py-3 text-base font-medium border-b border-[color:var(--color-neutral-100)] last:border-0"
               >
                 {link.label}

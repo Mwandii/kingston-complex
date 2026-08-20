@@ -6,6 +6,10 @@ import Highlights from "../components/sections/Highlights";
 import Accommodation from "../components/sections/Accomodations";
 import Conference from "../components/sections/Conference";
 import Restaurant from "../components/sections/Restaurant";
+import Bar from "../components/sections/Bar";
+import Reviews from "../components/sections/Reviews";
+import Location from "../components/sections/Location";
+import Footer from "../components/layout/Footer";
 
 /**
  * Homepage. Sections (About, Highlights, teasers, Reviews, Location,
@@ -40,6 +44,9 @@ export default function Home() {
       <Accommodation/>
       <Conference/>
       <Restaurant/>
+      <Bar/>
+      <Reviews/>
+      <Location/>
       {/* Highlights, Accommodation teaser, Conference teaser,
           Restaurant teaser, Bar teaser, Why Us, Reviews, Location —
           added here as we build each one. */}

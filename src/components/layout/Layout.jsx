@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 /**
  * Persistent shell around every route: Navbar stays mounted, page
@@ -12,9 +13,9 @@ export default function Layout() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.state?.scrollTo) return;
+    if (location.state?.scrollTo || location.hash) return;
     window.scrollTo({ top: 0 });
-  }, [location.pathname, location.state]);
+  }, [location.pathname, location.state, location.hash]);
 
   return (
     <>
@@ -22,7 +23,7 @@ export default function Layout() {
       <main>
         <Outlet />
       </main>
-      {/* Footer mounts here once built */}
+      <Footer />
     </>
   );
 }

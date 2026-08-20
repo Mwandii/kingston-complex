@@ -104,6 +104,109 @@ export const restaurant = {
   },
 };
 
+export const bar = {
+  badge: "Bar",
+  heading: "Cold drinks, good company",
+  subheading:
+    "Full drinks menu below. Hosting a private function? The whole bar is available to reserve.",
+  drinksMenu: [
+    { name: "Tusker", price: "KSh 250" },
+    { name: "White Cap", price: "KSh 250" },
+    { name: "Soda (500ml)", price: "KSh 80" },
+    { name: "Water (500ml)", price: "KSh 50" },
+  ],
+  ctaLabel: "Reserve the bar for a private event",
+  ctaHref: "/bar",
+};
+
+export const reviewsSection = {
+  badge: "Reviews",
+  heading: "What guests are saying",
+  subheading: "Real feedback from people who've stopped, stayed, or hosted an event here.",
+};
+
+// Seed data — starting reviews shown before anyone submits a new one.
+export const initialReviews = [
+  {
+    id: "seed-1",
+    name: "Peter Kamau",
+    rating: 5,
+    text: "Booked the conference hall for a training session — spacious, and the projector setup worked without any fuss.",
+    date: "2026-06-12",
+  },
+  {
+    id: "seed-2",
+    name: "Ann Wanjiru",
+    rating: 4,
+    text: "Good stop on the way to Mombasa. Room was clean, hot shower worked, and the food came out fast.",
+    date: "2026-05-28",
+  },
+  {
+    id: "seed-3",
+    name: "James Otieno",
+    rating: 5,
+    text: "Reserved the bar for a small birthday gathering — staff were accommodating and the place had a great atmosphere.",
+    date: "2026-05-10",
+  },
+];
+
+export const location = {
+  badge: "Find us",
+  heading: "Right on the highway in Makindu",
+  subheading: "Easy to spot, easy to reach — whether you're passing through or planning ahead.",
+  mapEmbedUrl: "https://maps.google.com/maps?q=Makindu,+Kenya&z=13&output=embed",
+};
+
+export const conferencePage = {
+  badge: "Conference hall",
+  heading: "Request a quote",
+  subheading:
+    "Fill in the details below and send it straight to WhatsApp — pricing depends on guest count, time, and add-ons, so you'll get an exact quote back directly.",
+  timeSlots: ["Morning (8am–12pm)", "Afternoon (12pm–4pm)", "Evening (4pm–8pm)", "Full day"],
+};
+
+export const restaurantPage = {
+  badge: "Restaurant",
+  heading: "Full menu",
+  subheading: "Call or message on WhatsApp to place an order — no need to come in first.",
+  menu: [
+    {
+      category: "Breakfast",
+      items: [
+        { name: "Tea & mandazi", price: "KSh 100" },
+        { name: "Eggs, sausage & toast", price: "KSh 300" },
+        { name: "Porridge", price: "KSh 100" },
+      ],
+    },
+    {
+      category: "Mains",
+      items: [
+        { name: "Ugali & beef stew", price: "KSh 350" },
+        { name: "Pilau with kachumbari", price: "KSh 400" },
+        { name: "Grilled chicken & chips", price: "KSh 500" },
+        { name: "Fish fillet & rice", price: "KSh 450" },
+        { name: "Chapati & beans", price: "KSh 250" },
+      ],
+    },
+    {
+      category: "Sides",
+      items: [
+        { name: "Kachumbari", price: "KSh 50" },
+        { name: "Sukuma wiki", price: "KSh 80" },
+        { name: "Chips", price: "KSh 150" },
+      ],
+    },
+    {
+      category: "Drinks (non-alcoholic)",
+      items: [
+        { name: "Soda", price: "KSh 80" },
+        { name: "Fresh juice", price: "KSh 150" },
+        { name: "Water (500ml)", price: "KSh 50" },
+      ],
+    },
+  ],
+};
+
 export const conference = {
   badge: "Conference hall",
   heading: "Space to meet, train or celebrate",
@@ -120,6 +223,13 @@ export const conference = {
   },
 };
 
+export const roomsPage = {
+  badge: "Accommodation",
+  heading: "Rooms & rates",
+  subheading:
+    "Every room comes with a hot shower. Pick the tier that fits the trip, then book on WhatsApp or call directly.",
+};
+
 export const accommodation = {
   badge: "Accommodation",
   heading: "A room for every kind of stay",
@@ -132,6 +242,9 @@ export const accommodation = {
       name: "Standard",
       price: "KSh 1,000",
       priceUnit: "/ night",
+      capacity: "1–2 guests",
+      description:
+        "A simple, clean room for a quick overnight stop — everything needed for a comfortable rest before getting back on the road.",
       image: {
         url: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
         alt: "Standard room at Kingston Complex",
@@ -144,6 +257,9 @@ export const accommodation = {
       name: "Deluxe",
       price: "KSh 2,000",
       priceUnit: "/ night",
+      capacity: "1–2 guests",
+      description:
+        "The most booked tier — a bit more space, a TV to unwind, and breakfast included in the morning before checkout.",
       image: {
         url: "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&w=800&q=80",
         alt: "Deluxe room at Kingston Complex",
@@ -156,6 +272,9 @@ export const accommodation = {
       name: "Executive",
       price: "KSh 3,500",
       priceUnit: "/ night",
+      capacity: "1–3 guests",
+      description:
+        "The largest room, with a work desk for anyone stopping through on business — ideal for a longer stay or a working trip.",
       image: {
         url: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
         alt: "Executive room at Kingston Complex",

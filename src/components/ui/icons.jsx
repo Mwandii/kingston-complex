@@ -139,3 +139,28 @@ export function IconUsers({ className = "w-4 h-4" }) {
     </svg>
   );
 }
+
+export function IconStar({ className = "w-4 h-4", filled = false }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill={filled ? "currentColor" : "none"}
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.8L12 3.5z" />
+    </svg>
+  );
+}
+
+export function IconPhone({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <path d="M4.5 3.5h3.4l1.6 4.3-2 1.6a12 12 0 0 0 5.1 5.1l1.6-2 4.3 1.6v3.4a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3 5.1a1.5 1.5 0 0 1 1.5-1.6z" />
+    </svg>
+  );
+}

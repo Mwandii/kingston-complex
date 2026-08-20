@@ -83,4 +83,20 @@
     @apply border-2 border-white/50 hover:bg-white/10 text-white font-semibold
            px-6 py-3 rounded-full transition-colors duration-200;
   }
+  .form-label {
+  @apply block text-sm font-medium text-[color:var(--color-neutral-600)] mb-1.5;
+}
+
+.form-input {
+  @apply w-full border border-[color:var(--color-neutral-200)] rounded-lg px-3.5 py-2.5
+         text-sm text-[color:var(--color-neutral-900)] placeholder:text-[color:var(--color-neutral-400)]
+         focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent-500)]/40
+         focus:border-[color:var(--color-accent-500)] transition-colors;
+}
+
+.btn-outline-dark {
+  @apply border-2 border-[color:var(--color-neutral-200)] hover:border-[color:var(--color-brand-800)]
+         hover:bg-[color:var(--color-brand-800)]/5 text-[color:var(--color-neutral-900)] font-semibold
+         px-6 py-3 rounded-full transition-colors duration-200;
+}
 }
