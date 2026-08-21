@@ -7,6 +7,9 @@ import Restaurant from "./pages/Restaurant";
 import Bar from "./pages/Bar";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminConference from "./pages/AdminConference";
+import AdminRooms from "./pages/AdminRooms";
+import AdminBookings from "./pages/AdminBookings";
 import RequireAuth from "./components/admin/RequireAuth";
 import AdminLayout from "./components/admin/AdminLayout";
 
@@ -26,7 +29,9 @@ export default function App() {
         <Route path="/admin" element={<RequireAuth />}>
           <Route element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
-            {/* /admin/conference, /admin/rooms, /admin/bookings added next */}
+            <Route path="conference" element={<AdminConference />} />
+            <Route path="rooms" element={<AdminRooms />} />
+            <Route path="bookings" element={<AdminBookings />} />
           </Route>
         </Route>
       </Routes>
