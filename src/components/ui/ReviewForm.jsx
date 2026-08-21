@@ -9,7 +9,7 @@ const initialFormState = { name: "", rating: 0, text: "" };
  * name/text, and a rating is required. Shows a brief success message
  * and resets after a successful submit.
  */
-export default function ReviewForm({ onSubmit, isSubmitting }) {
+export default function ReviewForm({ onSubmit, isSubmitting, error }) {
   const [form, setForm] = useState(initialFormState);
   const [errors, setErrors] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
@@ -85,6 +85,8 @@ export default function ReviewForm({ onSubmit, isSubmitting }) {
         <button type="submit" disabled={isSubmitting} className="btn-primary w-full disabled:opacity-60">
           {isSubmitting ? "Submitting..." : "Submit review"}
         </button>
+
+        {error && <p className="text-sm text-red-600 text-center">{error}</p>}
 
         {showSuccess && (
           <p className="text-sm text-[color:var(--color-brand-800)] text-center">

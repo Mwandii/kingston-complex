@@ -1,49 +1,80 @@
-import { useState } from "react";
-import { initialReviews } from "../data/siteData";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabaseClient";
 
 /**
  * Manages review state for the Reviews section.
  *
- * PHASE 1 (current): reviews live in React state, seeded from
- * siteData.js. New submissions append instantly — feels dynamic, but
- * resets on page reload since nothing is persisted.
- *
- * PHASE 2 (later): swap the body of `addReview` for a Supabase insert,
- * and seed `reviews` from a fetch instead of `initialReviews`. The
- * return shape (reviews / addReview / isSubmitting / error) stays the
- * same, so ReviewForm and Reviews.jsx don't need to change at all.
+ * PHASE 2 (current): reviews are fetched from and written to a real
+ * Supabase table (`reviews`) — no longer resets on refresh. Replaces
+ * the PHASE 1 in-memory version; the return shape (reviews / addReview
+ * / isSubmitting / error) is unchanged, so nothing else in the app
+ * needed to change.
  */
 export function useReviews() {
-  const [reviews, setReviews] = useState(initialReviews);
+  const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchReviews() {
+      const { data, error: fetchError } = await supabase
+        .from("reviews")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (!isMounted) return;
+
+      if (fetchError) {
+        setError("Couldn't load reviews right now. Please refresh the page.");
+      } else {
+        setReviews(data.map(mapRow));
+      }
+      setIsLoading(false);
+    }
+
+    fetchReviews();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const addReview = async ({ name, rating, text }) => {
     setError(null);
     setIsSubmitting(true);
 
-    try {
-      // Simulated network delay so the loading state behaves the same
-      // way it will once this is a real API call in Phase 2.
-      await new Promise((resolve) => setTimeout(resolve, 400));
+    const { data, error: insertError } = await supabase
+      .from("reviews")
+      .insert({ name, rating, text })
+      .select()
+      .single();
 
-      const newReview = {
-        id: `local-${Date.now()}`,
-        name,
-        rating,
-        text,
-        date: new Date().toISOString().slice(0, 10),
-      };
+    setIsSubmitting(false);
 
-      setReviews((current) => [newReview, ...current]);
-      return true;
-    } catch {
+    if (insertError) {
       setError("Something went wrong submitting your review. Please try again.");
       return false;
-    } finally {
-      setIsSubmitting(false);
     }
+
+    setReviews((current) => [mapRow(data), ...current]);
+    return true;
   };
 
-  return { reviews, addReview, isSubmitting, error };
+  return { reviews, addReview, isLoading, isSubmitting, error };
+}
+
+/**
+ * Maps a Supabase row (id / name / rating / text / created_at) to the
+ * shape the UI components expect (id / name / rating / text / date).
+ */
+function mapRow(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    rating: row.rating,
+    text: row.text,
+    date: row.created_at,
+  };
 }

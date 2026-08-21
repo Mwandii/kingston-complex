@@ -164,3 +164,39 @@ export function IconPhone({ className = "w-4 h-4" }) {
     </svg>
   );
 }
+
+export function IconGrid({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
+    </svg>
+  );
+}
+
+export function IconCalendar({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+    </svg>
+  );
+}
+
+export function IconList({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+    </svg>
+  );
+}
+
+export function IconLogout({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+    </svg>
+  );
+}

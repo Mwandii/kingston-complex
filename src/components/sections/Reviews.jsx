@@ -12,7 +12,7 @@ import ReviewForm from "../ui/ReviewForm";
  * internals for Supabase, this component doesn't change).
  */
 export default function Reviews() {
-  const { reviews, addReview, isSubmitting } = useReviews();
+  const { reviews, addReview, isLoading, isSubmitting, error } = useReviews();
 
   return (
     <section id="reviews" className="bg-white py-24">
@@ -31,6 +31,16 @@ export default function Reviews() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 grid sm:grid-cols-2 gap-5 content-start">
+            {isLoading && (
+              <p className="text-sm text-[color:var(--color-neutral-500)] sm:col-span-2">Loading reviews...</p>
+            )}
+
+            {!isLoading && reviews.length === 0 && (
+              <p className="text-sm text-[color:var(--color-neutral-500)] sm:col-span-2">
+                No reviews yet — be the first to leave one.
+              </p>
+            )}
+
             {reviews.map((review, index) => (
               <FadeIn direction="up" delay={200 + index * 80} key={review.id}>
                 <ReviewCard review={review} />
@@ -39,7 +49,7 @@ export default function Reviews() {
           </div>
 
           <FadeIn direction="up" delay={250}>
-            <ReviewForm onSubmit={addReview} isSubmitting={isSubmitting} />
+            <ReviewForm onSubmit={addReview} isSubmitting={isSubmitting} error={error} />
           </FadeIn>
         </div>
       </div>
