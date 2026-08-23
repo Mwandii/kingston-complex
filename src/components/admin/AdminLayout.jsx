@@ -1,12 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { IconGrid, IconCalendar, IconBed, IconList, IconLogout } from "../ui/icons";
+import { IconGrid, IconCalendar, IconBed, IconGlass, IconChart, IconList, IconLogout } from "../ui/icons";
 
 const navItems = [
   { to: "/admin", label: "Dashboard", icon: IconGrid, end: true },
   { to: "/admin/conference", label: "Conference hall", icon: IconCalendar },
   { to: "/admin/rooms", label: "Rooms", icon: IconBed },
+  { to: "/admin/bar", label: "Bar", icon: IconGlass },
   { to: "/admin/bookings", label: "Bookings", icon: IconList },
+  { to: "/admin/finance", label: "Finance", icon: IconChart },
 ];
 
 /**

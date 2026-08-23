@@ -41,6 +41,16 @@ export function getOccupiedDateKeys(checkInKey, checkOutKey) {
 export function isDateWithinStay(dateKey, checkInKey, checkOutKey) {
   return dateKey >= checkInKey && dateKey < checkOutKey;
 }
+/** First day of the current month, as a date key. */
+export function getMonthStartKey(date = new Date()) {
+  return toDateKey(new Date(date.getFullYear(), date.getMonth(), 1));
+}
+
+/** First day of the current year, as a date key. */
+export function getYearStartKey(date = new Date()) {
+  return toDateKey(new Date(date.getFullYear(), 0, 1));
+}
+
 /** "2026-08-21" -> "21 Aug 2026" */
 export function formatDisplayDate(dateKey) {
   const date = new Date(`${dateKey}T00:00:00`);

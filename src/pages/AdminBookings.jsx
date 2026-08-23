@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { useRoomBookings } from "../hooks/useRoomBookings";
 import { useConferenceBookings } from "../hooks/useConferenceBookings";
-import { formatDisplayDate, formatTime, toDateKey } from "../utils/date";
-
-const ROOM_LABELS = { standard: "Standard room", deluxe: "Deluxe room", executive: "Executive room" };
+import { useBarBookings } from "../hooks/useBarBookings";
+import { toDateKey } from "../utils/date";
+import { mergeBookings } from "../utils/mergeBookings";
 
 export default function AdminBookings() {
   const { bookings: roomBookings, isLoading: roomsLoading, error: roomsError } = useRoomBookings();
@@ -12,36 +12,16 @@ export default function AdminBookings() {
     isLoading: conferenceLoading,
     error: conferenceError,
   } = useConferenceBookings();
+  const { bookings: barBookings, isLoading: barLoading, error: barError } = useBarBookings();
   const [activeTab, setActiveTab] = useState("upcoming");
 
-  const isLoading = roomsLoading || conferenceLoading;
+  const isLoading = roomsLoading || conferenceLoading || barLoading;
   const today = useMemo(() => toDateKey(new Date()), []);
 
-  const allRows = useMemo(() => {
-    const roomRows = roomBookings.map((b) => ({
-      id: `room-${b.id}`,
-      service: ROOM_LABELS[b.room_type] ?? b.room_type,
-      client: b.client_name,
-      phone: b.phone,
-      dateDisplay: formatDisplayDate(b.check_in),
-      detail: `${formatDisplayDate(b.check_in)} – ${formatDisplayDate(b.check_out)}`,
-      amount: b.amount_paid,
-      sortKey: b.check_in,
-    }));
-
-    const conferenceRows = conferenceBookings.map((b) => ({
-      id: `conf-${b.id}`,
-      service: "Conference hall",
-      client: b.client_name,
-      phone: b.phone,
-      dateDisplay: formatDisplayDate(b.booking_date),
-      detail: `${formatTime(b.start_time)} – ${formatTime(b.end_time)}`,
-      amount: b.amount_paid,
-      sortKey: b.booking_date,
-    }));
-
-    return [...roomRows, ...conferenceRows];
-  }, [roomBookings, conferenceBookings]);
+  const allRows = useMemo(
+    () => mergeBookings(roomBookings, conferenceBookings, barBookings),
+    [roomBookings, conferenceBookings, barBookings]
+  );
 
   // Upcoming: today and later, soonest first — what staff check daily.
   // History: before today, most recent first — checked occasionally.
@@ -60,8 +40,8 @@ export default function AdminBookings() {
     <div>
       <h1 className="text-xl font-semibold text-[color:var(--color-neutral-900)] mb-6">Bookings</h1>
 
-      {(roomsError || conferenceError) && (
-        <p className="text-sm text-red-600 mb-4">{roomsError || conferenceError}</p>
+      {(roomsError || conferenceError || barError) && (
+        <p className="text-sm text-red-600 mb-4">{roomsError || conferenceError || barError}</p>
       )}
 
       <div className="flex gap-2 mb-6">

@@ -200,3 +200,21 @@ export function IconLogout({ className = "w-4 h-4" }) {
     </svg>
   );
 }
+
+export function IconGlass({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <path d="M6 3h12l-1.5 12a4.5 4.5 0 0 1-9 0L6 3z" />
+      <path d="M12 15v6M8 21h8" />
+    </svg>
+  );
+}
+
+export function IconChart({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <path d="M3 3v18h18" />
+      <path d="M7 15l4-5 3 3 5-7" />
+    </svg>
+  );
+}

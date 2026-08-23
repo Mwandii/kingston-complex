@@ -1,32 +1,13 @@
 import { useMemo, useState } from "react";
-import { useRoomBookings } from "../hooks/useRoomBookings";
+import { useBarBookings } from "../hooks/useBarBookings";
 import MiniMonthCalendar from "../components/admin/MiniMonthCalendar";
-import {
-  toDateKey,
-  formatDisplayDate,
-  getOccupiedDateKeys,
-  isDateWithinStay,
-} from "../utils/date";
+import { toDateKey, formatDisplayDate } from "../utils/date";
 import { SOURCE_OPTIONS } from "../utils/bookingSource";
 
-const ROOM_TYPES = [
-  { value: "standard", label: "Standard" },
-  { value: "deluxe", label: "Deluxe" },
-  { value: "executive", label: "Executive" },
-];
+const initialFormState = { clientName: "", phone: "", occasion: "", amountPaid: "", source: "walk-in" };
 
-const initialFormState = {
-  clientName: "",
-  phone: "",
-  checkIn: "",
-  checkOut: "",
-  amountPaid: "",
-  source: "walk-in",
-};
-
-export default function AdminRooms() {
-  const { bookings, isLoading, error, addBooking } = useRoomBookings();
-  const [roomType, setRoomType] = useState("standard");
+export default function AdminBar() {
+  const { bookings, isLoading, error, addBooking } = useBarBookings();
   const [selectedDateKey, setSelectedDateKey] = useState(() => toDateKey(new Date()));
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [form, setForm] = useState(initialFormState);
@@ -34,22 +15,11 @@ export default function AdminRooms() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
 
-  const bookingsForRoomType = useMemo(
-    () => bookings.filter((b) => b.room_type === roomType),
-    [bookings, roomType]
-  );
-
-  const bookedDateKeys = useMemo(() => {
-    const keys = new Set();
-    bookingsForRoomType.forEach((b) => {
-      getOccupiedDateKeys(b.check_in, b.check_out).forEach((key) => keys.add(key));
-    });
-    return keys;
-  }, [bookingsForRoomType]);
+  const bookedDateKeys = useMemo(() => new Set(bookings.map((b) => b.event_date)), [bookings]);
 
   const bookingsForSelectedDate = useMemo(
-    () => bookingsForRoomType.filter((b) => isDateWithinStay(selectedDateKey, b.check_in, b.check_out)),
-    [bookingsForRoomType, selectedDateKey]
+    () => bookings.filter((b) => b.event_date === selectedDateKey),
+    [bookings, selectedDateKey]
   );
 
   const resetForm = () => {
@@ -63,11 +33,6 @@ export default function AdminRooms() {
     const errors = {};
     if (!form.clientName.trim()) errors.clientName = "Required";
     if (!form.phone.trim()) errors.phone = "Required";
-    if (!form.checkIn) errors.checkIn = "Required";
-    if (!form.checkOut) errors.checkOut = "Required";
-    if (form.checkIn && form.checkOut && form.checkOut <= form.checkIn) {
-      errors.checkOut = "Must be after check-in";
-    }
     if (!form.amountPaid || Number(form.amountPaid) <= 0) errors.amountPaid = "Required";
     return errors;
   };
@@ -82,9 +47,8 @@ export default function AdminRooms() {
     const result = await addBooking({
       client_name: form.clientName,
       phone: form.phone,
-      room_type: roomType,
-      check_in: form.checkIn,
-      check_out: form.checkOut,
+      event_date: selectedDateKey,
+      occasion: form.occasion.trim() || null,
       amount_paid: Number(form.amountPaid),
       source: form.source,
     });
@@ -99,28 +63,12 @@ export default function AdminRooms() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-[color:var(--color-neutral-900)] mb-6">Rooms</h1>
+      <h1 className="text-xl font-semibold text-[color:var(--color-neutral-900)] mb-6">Bar</h1>
+      <p className="text-sm text-[color:var(--color-neutral-500)] mb-6">
+        Whole-bar reservations for private events — not individual tables.
+      </p>
 
       {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
-
-      <div className="flex gap-2 mb-6">
-        {ROOM_TYPES.map((type) => (
-          <button
-            key={type.value}
-            onClick={() => {
-              setRoomType(type.value);
-              setIsFormOpen(false);
-            }}
-            className={`text-sm font-medium px-4 py-2 rounded-full transition-colors ${
-              roomType === type.value
-                ? "bg-[color:var(--color-brand-800)] text-white"
-                : "bg-white border border-[color:var(--color-neutral-200)] text-[color:var(--color-neutral-600)]"
-            }`}
-          >
-            {type.label}
-          </button>
-        ))}
-      </div>
 
       <div className="grid lg:grid-cols-[320px_1fr] gap-6 items-start">
         <div className="bg-white rounded-xl border border-[color:var(--color-neutral-200)] p-5">
@@ -137,11 +85,11 @@ export default function AdminRooms() {
         <div className="bg-white rounded-xl border border-[color:var(--color-neutral-200)] p-6">
           <div className="flex items-center justify-between mb-5">
             <p className="font-semibold text-[color:var(--color-neutral-900)]">
-              {formatDisplayDate(selectedDateKey)} · {ROOM_TYPES.find((t) => t.value === roomType).label}
+              {formatDisplayDate(selectedDateKey)}
             </p>
             {!isFormOpen && (
               <button onClick={() => setIsFormOpen(true)} className="btn-secondary text-sm px-4 py-2">
-                Add booking
+                Add reservation
               </button>
             )}
           </div>
@@ -149,7 +97,7 @@ export default function AdminRooms() {
           {isLoading ? (
             <p className="text-sm text-[color:var(--color-neutral-500)]">Loading...</p>
           ) : bookingsForSelectedDate.length === 0 && !isFormOpen ? (
-            <p className="text-sm text-[color:var(--color-neutral-500)]">Room free on this date.</p>
+            <p className="text-sm text-[color:var(--color-neutral-500)]">No reservation for this date.</p>
           ) : (
             <div className="space-y-3 mb-2">
               {bookingsForSelectedDate.map((booking) => (
@@ -162,8 +110,7 @@ export default function AdminRooms() {
                       {booking.client_name}
                     </p>
                     <p className="text-xs text-[color:var(--color-neutral-500)]">
-                      {formatDisplayDate(booking.check_in)} – {formatDisplayDate(booking.check_out)} ·{" "}
-                      {booking.phone}
+                      {booking.occasion || "Private event"} · {booking.phone}
                     </p>
                   </div>
                   <p className="text-sm font-medium text-[color:var(--color-neutral-900)]">
@@ -198,24 +145,14 @@ export default function AdminRooms() {
                   {formErrors.phone && <p className="text-xs text-red-600 mt-1">{formErrors.phone}</p>}
                 </div>
                 <div>
-                  <label className="form-label">Check-in</label>
+                  <label className="form-label">Occasion (optional)</label>
                   <input
-                    type="date"
-                    value={form.checkIn}
-                    onChange={(e) => setForm((f) => ({ ...f, checkIn: e.target.value }))}
+                    type="text"
+                    value={form.occasion}
+                    onChange={(e) => setForm((f) => ({ ...f, occasion: e.target.value }))}
                     className="form-input"
+                    placeholder="e.g. Birthday, send-off"
                   />
-                  {formErrors.checkIn && <p className="text-xs text-red-600 mt-1">{formErrors.checkIn}</p>}
-                </div>
-                <div>
-                  <label className="form-label">Check-out</label>
-                  <input
-                    type="date"
-                    value={form.checkOut}
-                    onChange={(e) => setForm((f) => ({ ...f, checkOut: e.target.value }))}
-                    className="form-input"
-                  />
-                  {formErrors.checkOut && <p className="text-xs text-red-600 mt-1">{formErrors.checkOut}</p>}
                 </div>
                 <div>
                   <label className="form-label">Amount paid (KSh)</label>
@@ -228,7 +165,6 @@ export default function AdminRooms() {
                   />
                   {formErrors.amountPaid && <p className="text-xs text-red-600 mt-1">{formErrors.amountPaid}</p>}
                 </div>
-
                 <div>
                   <label className="form-label">Source</label>
                   <select
@@ -253,7 +189,7 @@ export default function AdminRooms() {
                   disabled={isSubmitting}
                   className="btn-primary text-sm px-5 py-2.5 disabled:opacity-60"
                 >
-                  {isSubmitting ? "Saving..." : "Save booking"}
+                  {isSubmitting ? "Saving..." : "Save reservation"}
                 </button>
                 <button type="button" onClick={resetForm} className="text-sm text-[color:var(--color-neutral-500)]">
                   Cancel

@@ -2,8 +2,16 @@ import { useMemo, useState } from "react";
 import { useConferenceBookings } from "../hooks/useConferenceBookings";
 import MiniMonthCalendar from "../components/admin/MiniMonthCalendar";
 import { toDateKey, formatDisplayDate, formatTime } from "../utils/date";
+import { SOURCE_OPTIONS } from "../utils/bookingSource";
 
-const initialFormState = { clientName: "", phone: "", startTime: "", endTime: "", amountPaid: "" };
+const initialFormState = {
+  clientName: "",
+  phone: "",
+  startTime: "",
+  endTime: "",
+  amountPaid: "",
+  source: "walk-in",
+};
 
 export default function AdminConference() {
   const { bookings, isLoading, error, addBooking } = useConferenceBookings();
@@ -55,6 +63,7 @@ export default function AdminConference() {
       start_time: form.startTime,
       end_time: form.endTime,
       amount_paid: Number(form.amountPaid),
+      source: form.source,
     });
     setIsSubmitting(false);
 
@@ -175,6 +184,21 @@ export default function AdminConference() {
                     className="form-input"
                   />
                   {formErrors.amountPaid && <p className="text-xs text-red-600 mt-1">{formErrors.amountPaid}</p>}
+                </div>
+
+                <div>
+                  <label className="form-label">Source</label>
+                  <select
+                    value={form.source}
+                    onChange={(e) => setForm((f) => ({ ...f, source: e.target.value }))}
+                    className="form-input"
+                  >
+                    {SOURCE_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 

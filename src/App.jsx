@@ -9,7 +9,9 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminConference from "./pages/AdminConference";
 import AdminRooms from "./pages/AdminRooms";
+import AdminBar from "./pages/AdminBar";
 import AdminBookings from "./pages/AdminBookings";
+import AdminFinance from "./pages/AdminFinance";
 import RequireAuth from "./components/admin/RequireAuth";
 import AdminLayout from "./components/admin/AdminLayout";
 
@@ -31,7 +33,9 @@ export default function App() {
             <Route index element={<AdminDashboard />} />
             <Route path="conference" element={<AdminConference />} />
             <Route path="rooms" element={<AdminRooms />} />
+            <Route path="bar" element={<AdminBar />} />
             <Route path="bookings" element={<AdminBookings />} />
+            <Route path="finance" element={<AdminFinance />} />
           </Route>
         </Route>
       </Routes>
