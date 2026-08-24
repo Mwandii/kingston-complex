@@ -56,7 +56,7 @@ export default function Navbar() {
 
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-colors duration-300 ${surfaceClasses}`}>
-      <div className="section-container flex items-center justify-between py-4">
+      <div className="section-container flex text-black items-center justify-between py-4">
         <Link to="/" className="font-display text-xl font-semibold tracking-wide">
           {brand.name}
         </Link>
