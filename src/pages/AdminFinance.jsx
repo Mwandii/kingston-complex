@@ -1,13 +1,26 @@
 import { useMemo, useState } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { useRoomBookings } from "../hooks/useRoomBookings";
 import { useConferenceBookings } from "../hooks/useConferenceBookings";
 import { useBarBookings } from "../hooks/useBarBookings";
 import { mergeBookings } from "../utils/mergeBookings";
-import { toDateKey, addDays, getMonthStartKey, getYearStartKey } from "../utils/date";
+import {
+  toDateKey,
+  parseDateKey,
+  addDays,
+  getWeekStartKey,
+  getWeekEndKey,
+  getMonthStartKey,
+  getMonthEndKey,
+  getYearStartKey,
+  getYearEndKey,
+  formatShortDate,
+  formatMonthLabel,
+} from "../utils/date";
 
 const PERIODS = [
   { value: "today", label: "Today" },
-  { value: "week", label: "Last 7 days" },
+  { value: "week", label: "This week" },
   { value: "month", label: "This month" },
   { value: "year", label: "This year" },
 ];
@@ -15,11 +28,12 @@ const PERIODS = [
 const CATEGORY_LABELS = { rooms: "Rooms", conference: "Conference hall", bar: "Bar" };
 
 /**
- * Revenue is bucketed by `createdAt` (when the booking — and therefore
- * the payment — was actually recorded), not by the stay/event date.
- * Every row in the system already represents money collected (no
- * "pending" bookings), so createdAt is the true date the cash came in,
- * even if the stay itself is weeks in the future.
+ * Revenue is bucketed by each booking's SERVICE date (check-in / event
+ * date / conference date) — a booking's full total_price counts toward
+ * the week/month it's actually delivered, regardless of when it was
+ * paid. A full payment today for a stay next week counts as next
+ * week's revenue; a deposit today + balance next week for the same
+ * booking both count toward next week too, not split across two days.
  */
 export default function AdminFinance() {
   const { bookings: roomBookings, isLoading: roomsLoading } = useRoomBookings();
@@ -36,28 +50,24 @@ export default function AdminFinance() {
 
   const todayKey = useMemo(() => toDateKey(new Date()), []);
 
-  const periodStartKey = useMemo(() => {
+  const { periodStart, periodEnd } = useMemo(() => {
     switch (period) {
       case "today":
-        return todayKey;
+        return { periodStart: todayKey, periodEnd: todayKey };
       case "week":
-        return toDateKey(addDays(new Date(), -6));
+        return { periodStart: getWeekStartKey(), periodEnd: getWeekEndKey() };
       case "month":
-        return getMonthStartKey();
+        return { periodStart: getMonthStartKey(), periodEnd: getMonthEndKey() };
       case "year":
-        return getYearStartKey();
+        return { periodStart: getYearStartKey(), periodEnd: getYearEndKey() };
       default:
-        return todayKey;
+        return { periodStart: todayKey, periodEnd: todayKey };
     }
   }, [period, todayKey]);
 
   const rowsInPeriod = useMemo(
-    () =>
-      allRows.filter((row) => {
-        const createdDateKey = row.createdAt.slice(0, 10);
-        return createdDateKey >= periodStartKey && createdDateKey <= todayKey;
-      }),
-    [allRows, periodStartKey, todayKey]
+    () => allRows.filter((row) => row.sortKey >= periodStart && row.sortKey <= periodEnd),
+    [allRows, periodStart, periodEnd]
   );
 
   const breakdown = useMemo(() => {
@@ -72,6 +82,35 @@ export default function AdminFinance() {
     const grandTotal = totals.rooms + totals.conference + totals.bar;
     return { totals, counts, grandTotal };
   }, [rowsInPeriod]);
+
+  const chartData = useMemo(() => {
+    if (period === "today") return null;
+
+    if (period === "year") {
+      const year = parseDateKey(periodStart).getFullYear();
+      const buckets = {};
+      for (let month = 0; month < 12; month++) {
+        buckets[`${year}-${String(month + 1).padStart(2, "0")}`] = 0;
+      }
+      rowsInPeriod.forEach((row) => {
+        const key = row.sortKey.slice(0, 7);
+        buckets[key] = (buckets[key] ?? 0) + Number(row.amount);
+      });
+      return Object.entries(buckets).map(([key, amount]) => ({ label: formatMonthLabel(key), amount }));
+    }
+
+    const buckets = {};
+    let cursor = parseDateKey(periodStart);
+    const end = parseDateKey(periodEnd);
+    while (cursor <= end) {
+      buckets[toDateKey(cursor)] = 0;
+      cursor = addDays(cursor, 1);
+    }
+    rowsInPeriod.forEach((row) => {
+      buckets[row.sortKey] = (buckets[row.sortKey] ?? 0) + Number(row.amount);
+    });
+    return Object.entries(buckets).map(([key, amount]) => ({ label: formatShortDate(key), amount }));
+  }, [rowsInPeriod, period, periodStart, periodEnd]);
 
   return (
     <div>
@@ -98,12 +137,12 @@ export default function AdminFinance() {
       ) : (
         <>
           <div className="bg-[color:var(--color-brand-950)] rounded-xl p-6 mb-6">
-            <p className="text-sm text-white/60">Total revenue — {PERIODS.find((p) => p.value === period).label}</p>
+            <p className="text-sm text-white/60">Revenue — {PERIODS.find((p) => p.value === period).label}</p>
             <p className="text-3xl font-semibold text-white mt-1">KSh {breakdown.grandTotal.toLocaleString()}</p>
             <p className="text-xs text-white/50 mt-1">{rowsInPeriod.length} bookings</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-3 gap-5 mb-6">
             {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
               <div key={key} className="bg-white rounded-xl border border-[color:var(--color-neutral-200)] p-5">
                 <p className="text-xs font-medium text-[color:var(--color-neutral-500)]">{label}</p>
@@ -116,6 +155,25 @@ export default function AdminFinance() {
               </div>
             ))}
           </div>
+
+          {chartData && (
+            <div className="bg-white rounded-xl border border-[color:var(--color-neutral-200)] p-6">
+              <p className="font-semibold text-[color:var(--color-neutral-900)] mb-4">Revenue trend</p>
+              <ResponsiveContainer width="100%" height={260}>
+                <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e4e0d6" />
+                  <XAxis dataKey="label" tick={{ fontSize: 11 }} stroke="#9c9788" />
+                  <YAxis
+                    tick={{ fontSize: 11 }}
+                    stroke="#9c9788"
+                    tickFormatter={(value) => `${value / 1000}k`}
+                  />
+                  <Tooltip formatter={(value) => [`KSh ${Number(value).toLocaleString()}`, "Revenue"]} />
+                  <Line type="monotone" dataKey="amount" stroke="#115e59" strokeWidth={2} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
         </>
       )}
     </div>

@@ -41,6 +41,35 @@ export function getOccupiedDateKeys(checkInKey, checkOutKey) {
 export function isDateWithinStay(dateKey, checkInKey, checkOutKey) {
   return dateKey >= checkInKey && dateKey < checkOutKey;
 }
+/** Sunday of the current week, as a date key. */
+export function getWeekStartKey(date = new Date()) {
+  const d = new Date(date);
+  return toDateKey(addDays(d, -d.getDay()));
+}
+
+export function getWeekEndKey(date = new Date()) {
+  return toDateKey(addDays(parseDateKey(getWeekStartKey(date)), 6));
+}
+
+export function getMonthEndKey(date = new Date()) {
+  return toDateKey(new Date(date.getFullYear(), date.getMonth() + 1, 0));
+}
+
+export function getYearEndKey(date = new Date()) {
+  return toDateKey(new Date(date.getFullYear(), 11, 31));
+}
+
+/** "2026-08-21" -> "21 Aug" (no year — compact for chart axes) */
+export function formatShortDate(dateKey) {
+  return parseDateKey(dateKey).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+}
+
+/** "2026-08" -> "Aug" */
+export function formatMonthLabel(yearMonthKey) {
+  const [year, month] = yearMonthKey.split("-").map(Number);
+  return new Date(year, month - 1, 1).toLocaleDateString("en-GB", { month: "short" });
+}
+
 /** First day of the current month, as a date key. */
 export function getMonthStartKey(date = new Date()) {
   return toDateKey(new Date(date.getFullYear(), date.getMonth(), 1));

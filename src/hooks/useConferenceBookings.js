@@ -28,11 +28,15 @@ export function useConferenceBookings() {
   }, [fetchBookings]);
 
   const addBooking = async (booking) => {
-    const { error: insertError } = await supabase.from("conference_bookings").insert(booking);
+    const { data, error: insertError } = await supabase
+      .from("conference_bookings")
+      .insert(booking)
+      .select()
+      .single();
     if (insertError) return { success: false, message: "Couldn't save the booking. Please try again." };
 
     await fetchBookings();
-    return { success: true };
+    return { success: true, data };
   };
 
   return { bookings, isLoading, error, addBooking };
