@@ -113,15 +113,18 @@ export default function AdminFinance() {
   }, [rowsInPeriod, period, periodStart, periodEnd]);
 
   return (
-    <div>
-      <h1 className="text-xl font-semibold text-[color:var(--color-neutral-900)] mb-6">Finance</h1>
+    <div className="w-full min-w-0">
+      <h1 className="text-xl font-semibold text-[color:var(--color-neutral-900)] mb-5 sm:mb-6">
+        Finance
+      </h1>
 
-      <div className="flex gap-2 mb-6">
+      {/* Period filters */}
+      <div className="flex flex-wrap gap-2 mb-5 sm:mb-6">
         {PERIODS.map((p) => (
           <button
             key={p.value}
             onClick={() => setPeriod(p.value)}
-            className={`text-sm font-medium px-4 py-2 rounded-full transition-colors ${
+            className={`text-sm font-medium px-3 sm:px-4 py-2 rounded-full transition-colors whitespace-nowrap ${
               period === p.value
                 ? "bg-[color:var(--color-brand-800)] text-white"
                 : "bg-white border border-[color:var(--color-neutral-200)] text-[color:var(--color-neutral-600)]"
@@ -136,19 +139,36 @@ export default function AdminFinance() {
         <p className="text-sm text-[color:var(--color-neutral-500)]">Loading...</p>
       ) : (
         <>
-          <div className="bg-[color:var(--color-brand-950)] rounded-xl p-6 mb-6">
-            <p className="text-sm text-white/60">Revenue — {PERIODS.find((p) => p.value === period).label}</p>
-            <p className="text-3xl font-semibold text-white mt-1">KSh {breakdown.grandTotal.toLocaleString()}</p>
-            <p className="text-xs text-white/50 mt-1">{rowsInPeriod.length} bookings</p>
+          {/* Revenue summary */}
+          <div className="bg-[color:var(--color-brand-950)] rounded-xl p-4 sm:p-6 mb-5 sm:mb-6 min-w-0">
+            <p className="text-sm text-white/60 break-words">
+              Revenue — {PERIODS.find((p) => p.value === period).label}
+            </p>
+
+            <p className="text-2xl sm:text-3xl font-semibold text-white mt-1 break-words">
+              KSh {breakdown.grandTotal.toLocaleString()}
+            </p>
+
+            <p className="text-xs text-white/50 mt-1">
+              {rowsInPeriod.length} bookings
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5 mb-6">
+          {/* Category breakdown */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6">
             {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
-              <div key={key} className="bg-white rounded-xl border border-[color:var(--color-neutral-200)] p-5">
-                <p className="text-xs font-medium text-[color:var(--color-neutral-500)]">{label}</p>
-                <p className="text-lg font-semibold text-[color:var(--color-neutral-900)] mt-1">
+              <div
+                key={key}
+                className="min-w-0 bg-white rounded-xl border border-[color:var(--color-neutral-200)] p-4 sm:p-5"
+              >
+                <p className="text-xs font-medium text-[color:var(--color-neutral-500)] break-words">
+                  {label}
+                </p>
+
+                <p className="text-lg font-semibold text-[color:var(--color-neutral-900)] mt-1 break-words">
                   KSh {breakdown.totals[key].toLocaleString()}
                 </p>
+
                 <p className="text-xs text-[color:var(--color-neutral-400)] mt-1">
                   {breakdown.counts[key]} booking{breakdown.counts[key] === 1 ? "" : "s"}
                 </p>
@@ -156,22 +176,52 @@ export default function AdminFinance() {
             ))}
           </div>
 
+          {/* Revenue chart */}
           {chartData && (
-            <div className="bg-white rounded-xl border border-[color:var(--color-neutral-200)] p-6">
-              <p className="font-semibold text-[color:var(--color-neutral-900)] mb-4">Revenue trend</p>
-              <ResponsiveContainer width="100%" height={260}>
-                <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e4e0d6" />
-                  <XAxis dataKey="label" tick={{ fontSize: 11 }} stroke="#9c9788" />
-                  <YAxis
-                    tick={{ fontSize: 11 }}
-                    stroke="#9c9788"
-                    tickFormatter={(value) => `${value / 1000}k`}
-                  />
-                  <Tooltip formatter={(value) => [`KSh ${Number(value).toLocaleString()}`, "Revenue"]} />
-                  <Line type="monotone" dataKey="amount" stroke="#115e59" strokeWidth={2} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
+            <div className="w-full min-w-0 overflow-hidden bg-white rounded-xl border border-[color:var(--color-neutral-200)] p-3 sm:p-5 md:p-6">
+              <p className="font-semibold text-[color:var(--color-neutral-900)] mb-4">
+                Revenue trend
+              </p>
+
+              <div className="w-full min-w-0">
+                <ResponsiveContainer width="100%" height={220} className="sm:!h-[260px]">
+                  <LineChart
+                    data={chartData}
+                    margin={{ top: 5, right: 10, left: 0, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e4e0d6" />
+
+                    <XAxis
+                      dataKey="label"
+                      tick={{ fontSize: 11 }}
+                      stroke="#9c9788"
+                      interval="preserveStartEnd"
+                    />
+
+                    <YAxis
+                      tick={{ fontSize: 11 }}
+                      stroke="#9c9788"
+                      tickFormatter={(value) => `${value / 1000}k`}
+                      width={45}
+                    />
+
+                    <Tooltip
+                      formatter={(value) => [
+                        `KSh ${Number(value).toLocaleString()}`,
+                        "Revenue",
+                      ]}
+                    />
+
+                    <Line
+                      type="monotone"
+                      dataKey="amount"
+                      stroke="#115e59"
+                      strokeWidth={2}
+                      dot={false}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           )}
         </>
