@@ -1,8 +1,8 @@
 export const brand = {
-  name: "Kingston Complex",
+  name: "Kingston Complex Makindu",
   tagline: "Rooms, conference hall, restaurant and bar in Makindu.",
   phone: "0700 000 000",
-  whatsappNumber: "254700000000", // international format, no leading +
+  whatsappNumber: "254728756376", // international format, no leading +
   address: "A109 Highway, Makindu, Makueni County",
 };
 
@@ -18,13 +18,13 @@ export const navLinks = [
 
 export const hero = {
   eyebrow: "Makindu, on the Nairobi–Mombasa highway",
-  headingPrefix: "Your stop between",
-  headingAccent: "two cities",
+  headingPrefix: "We don't compete",
+  headingAccent: "We set standards",
   subheading:
     "Rooms, a conference hall, a restaurant and a bar — all under one roof, open every day of the week.",
   stats: [
     { value: "3", label: "Room tiers" },
-    { value: "120", label: "Hall capacity" },
+    { value: "50", label: "Hall capacity" },
     { value: "Daily", label: "Open every day" },
   ],
   // Unsplash — free for commercial use, no attribution required.
@@ -50,7 +50,7 @@ export const about = {
   badge: "About us",
   heading: "Built for travelers, loved by locals",
   paragraphs: [
-    "Kingston Complex sits right on the Nairobi–Mombasa highway in Makindu — a place to break the journey, rest properly, and get back on the road. But it's just as much a part of daily life here: a spot for a cold drink after work, a family lunch, or a room full of chairs set up for a training session on a Tuesday morning.",
+    "Kingston Complex sits right on the Nairobi–Mombasa highway directly opposite Makindu Motors — a place to break the journey, rest properly, and get back on the road. But it's just as much a part of daily life here: a spot for a cold drink after work, a family lunch, or a room full of chairs set up for a training session on a Tuesday morning.",
     "Rooms, a restaurant, a bar and a conference hall all sit under one roof, run with the kind of attention that comes from actually knowing the people who walk through the door.",
   ],
   values: [
@@ -262,8 +262,8 @@ export const conference = {
   badge: "Conference hall",
   heading: "Space to meet, train or celebrate",
   subheading:
-    "Seats up to 120 guests, with equipment and catering add-ons available depending on what the event needs.",
-  capacity: "120 guests",
+    "Seats up to 50 guests, with equipment and catering add-ons available depending on what the event needs.",
+  capacity: "50 guests",
   addOns: ["Projector", "PA system", "Water", "Soda", "Full catering"],
   ctaLabel: "Get a quote",
   ctaHref: "/conference",
