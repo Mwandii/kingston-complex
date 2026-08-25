@@ -3,7 +3,7 @@ export const brand = {
   tagline: "Rooms, conference hall, restaurant and bar in Makindu.",
   phone: "0700 000 000",
   whatsappNumber: "254728756376", // international format, no leading +
-  address: "A109 Highway, Makindu, Makueni County",
+  address: "A109 Highway, Makindu oposite Makindu Motors, Makueni County",
 };
 
 export const navLinks = [
@@ -83,6 +83,7 @@ export const highlights = [
   { icon: "wifi", label: "Free WiFi throughout" },
   { icon: "clock", label: "24/7 reception" },
   { icon: "parking", label: "Secure on-site parking" },
+  { icon: "cctv", label: "24/7 CCTV coverage" },
 ];
 
 export const restaurant = {
@@ -154,7 +155,7 @@ export const location = {
   badge: "Find us",
   heading: "Right on the highway in Makindu",
   subheading: "Easy to spot, easy to reach — whether you're passing through or planning ahead.",
-  mapEmbedUrl: "https://maps.google.com/maps?q=Makindu,+Kenya&z=13&output=embed",
+  mapEmbedUrl: "https://maps.google.com/maps?q=Kingstone+Hotel+Makindu,+Makindu,+Kenya&z=13&output=embed",
 };
 
 export const conferencePage = {
@@ -291,46 +292,46 @@ export const accommodation = {
     {
       id: "standard",
       name: "Standard",
-      price: "KSh 1,000",
+      price: "KSh 1,200",
       priceUnit: "/ night",
-      capacity: "1–2 guests",
+      capacity: "1 bed 4 by 6 ft",
       description:
         "A simple, clean room for a quick overnight stop — everything needed for a comfortable rest before getting back on the road.",
       image: {
         url: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
         alt: "Standard room at Kingston Complex",
       },
-      amenities: ["shower", "water"],
+      amenities: ["shower", "water", "breakfast"],
       featured: false,
     },
     {
       id: "deluxe",
       name: "Deluxe",
-      price: "KSh 2,000",
+      price: "KSh 1,700",
       priceUnit: "/ night",
-      capacity: "1–2 guests",
+      capacity: "1 bed 5 by 6 ft",
       description:
         "The most booked tier — a bit more space, a TV to unwind, and breakfast included in the morning before checkout.",
       image: {
         url: "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&w=800&q=80",
         alt: "Deluxe room at Kingston Complex",
       },
-      amenities: ["shower", "tv", "coffee"],
+      amenities: ["shower", "tv", "breakfast"],
       featured: true,
     },
     {
       id: "executive",
       name: "Executive",
-      price: "KSh 3,500",
+      price: "KSh 2,000",
       priceUnit: "/ night",
-      capacity: "1–3 guests",
+      capacity: "2 beds 5 by 6 ft",
       description:
         "The largest room, with a work desk for anyone stopping through on business — ideal for a longer stay or a working trip.",
       image: {
         url: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
         alt: "Executive room at Kingston Complex",
       },
-      amenities: ["shower", "tv", "coffee", "desk"],
+      amenities: ["shower", "tv", "breakfast", "desk"],
       featured: false,
     },
   ],

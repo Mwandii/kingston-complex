@@ -1,11 +1,12 @@
 import { highlights } from "../../data/siteData";
-import { IconCard, IconWifi, IconClock, IconParking } from "../ui/icons";
+import { IconCard, IconWifi, IconClock, IconParking, IconCCTV } from "../ui/icons";
 
 const iconMap = {
   card: IconCard,
   wifi: IconWifi,
   clock: IconClock,
   parking: IconParking,
+  cctv: IconCCTV,
 };
 
 /**
@@ -17,7 +18,7 @@ const iconMap = {
 export default function Highlights() {
   return (
     <section className="bg-[color:var(--color-brand-900)]">
-      <div className="section-container py-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="section-container py-6 items center grid grid-cols-2 md:grid-cols-5 gap-6">
         {highlights.map((item) => {
           const Icon = iconMap[item.icon];
           return (

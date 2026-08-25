@@ -218,3 +218,14 @@ export function IconChart({ className = "w-4 h-4" }) {
     </svg>
   );
 }
+
+export function IconCCTV({ className = "w-5 h-5" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <path d="M4 7h8l5 3v4l-5 3H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z" />
+      <path d="M17 10h4v4h-4" />
+      <path d="M7 17v3" />
+      <path d="M5 20h4" />
+    </svg>
+  );
+}
