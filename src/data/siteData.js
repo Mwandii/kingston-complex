@@ -4,6 +4,11 @@ export const brand = {
   phone: "0700 000 000",
   whatsappNumber: "254728756376", // international format, no leading +
   address: "A109 Highway, Makindu oposite Makindu Motors, Makueni County",
+    social: {
+    facebook: "https://facebook.com/kingstoncomplex",
+    instagram: "https://instagram.com/kingstoncomplex",
+    tiktok: "https://tiktok.com/@kingstoncomplex",
+  },
 };
 
 export const navLinks = [

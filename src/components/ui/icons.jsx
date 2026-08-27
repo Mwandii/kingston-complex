@@ -219,6 +219,34 @@ export function IconChart({ className = "w-4 h-4" }) {
   );
 }
 
+export function IconFacebook({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <path d="M15 8.5h-2a1 1 0 0 0-1 1V11h3l-.5 3H12v7" />
+      <circle cx="12" cy="12" r="9" />
+    </svg>
+  );
+}
+
+export function IconInstagram({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17" cy="7" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function IconTiktok({ className = "w-4 h-4" }) {
+  return (
+    <svg {...defaultProps} className={className}>
+      <path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5c.35 0 .68.05 1 .14" />
+      <path d="M14 3a5.5 5.5 0 0 0 5 5" />
+    </svg>
+  );
+}
+
 export function IconCCTV({ className = "w-5 h-5" }) {
   return (
     <svg {...defaultProps} className={className}>
