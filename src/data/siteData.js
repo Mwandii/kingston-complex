@@ -1,13 +1,13 @@
 export const brand = {
   name: "Kingston Complex Makindu",
   tagline: "Rooms, conference hall, restaurant and bar in Makindu.",
-  phone: "0700 000 000",
-  whatsappNumber: "254728756376", // international format, no leading +
-  address: "A109 Highway, Makindu oposite Makindu Motors, Makueni County",
+  phone: "0708 099 203",
+  whatsappNumber: "254708099203", // international format, no leading +
+  address: "A109 Highway, Makindu opposite Makindu Motors, Makueni County",
     social: {
-    facebook: "https://facebook.com/kingstoncomplex",
-    instagram: "https://instagram.com/kingstoncomplex",
-    tiktok: "https://tiktok.com/@kingstoncomplex",
+    facebook: "https://web.facebook.com/people/kingston-complex-HOTEL-Makindu/61593170583662/",
+    instagram: "https://www.instagram.com/kingstoncomplexmakindu",
+    tiktok: "https://tiktok.com/@kingstone833",
   },
 };
 
@@ -288,7 +288,7 @@ export const conference = {
   subheading:
     "Seats up to 50 guests, with equipment and catering add-ons available depending on what the event needs.",
   capacity: "50 guests",
-  addOns: ["Projector", "PA system", "Water", "Soda", "Full catering"],
+  addOns: ["Projector", "Notebooks", "Water", "Soda", "Full catering"],
   ctaLabel: "Get a quote",
   ctaHref: "/conference",
   // Unsplash — free for commercial use, no attribution required.
