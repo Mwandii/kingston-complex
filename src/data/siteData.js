@@ -316,7 +316,7 @@ export const accommodation = {
       id: "standard",
       name: "Standard",
       price: "KSh 1,200",
-      priceUnit: "/ night",
+      priceUnit: "/ night + breakfast included",
       capacity: "1 bed 4 by 6 ft",
       description:
         "A simple, clean room for a quick overnight stop — everything needed for a comfortable rest before getting back on the road.",
@@ -331,7 +331,7 @@ export const accommodation = {
       id: "deluxe",
       name: "Deluxe",
       price: "KSh 1,700",
-      priceUnit: "/ night",
+      priceUnit: "/ night + breakfast included",
       capacity: "1 bed 5 by 6 ft",
       description:
         "The most booked tier — a bit more space, a TV to unwind, and breakfast included in the morning before checkout.",
@@ -346,7 +346,7 @@ export const accommodation = {
       id: "executive",
       name: "Executive",
       price: "KSh 2,000",
-      priceUnit: "/ night",
+      priceUnit: "/ night + breakfast included",
       capacity: "2 beds 5 by 6 ft",
       description:
         "The largest room, with a work desk for anyone stopping through on business — ideal for a longer stay or a working trip.",
