@@ -58,7 +58,7 @@ export default function Bar() {
           <p className="text-[color:var(--color-neutral-600)] mb-8">{barPage.subheading}</p>
         </FadeIn>
 
-        <FadeIn direction="up" delay={175}>
+      {/*  <FadeIn direction="up" delay={175}>
           <div className="rounded-3xl overflow-hidden shadow-xl aspect-[16/9] mb-12">
             <img
               src={barPage.bannerImage.url}
@@ -68,10 +68,10 @@ export default function Bar() {
               onError={(event) => (event.currentTarget.style.display = "none")}
             />
           </div>
-        </FadeIn>
+        </FadeIn>*/}
 
         {/* Menu */}
-        <div className="space-y-10 mb-16">
+      {/*  <div className="space-y-10 mb-16">
           {barPage.menu.map((section, sectionIndex) => (
             <FadeIn direction="up" delay={100 + sectionIndex * 80} key={section.category}>
               <div>
@@ -86,7 +86,7 @@ export default function Bar() {
               </div>
             </FadeIn>
           ))}
-        </div>
+        </div> */}
       </div>
 
       {/* Private event reservation — full-width tinted band, photo + form */}

@@ -35,15 +35,15 @@ export const hero = {
   // Unsplash — free for commercial use, no attribution required.
   collageImages: [
     {
-      url: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=80",
+      url: "images/hero4.jpeg",
       alt: "A guest room at Kingston Complex",
     },
     {
-      url: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=1000&q=80",
+      url: "images/hero2.jpeg",
       alt: "The conference hall at Kingston Complex",
     },
     {
-      url: "https://images.unsplash.com/photo-1551016043-06ec2173531b?auto=format&fit=crop&w=1000&q=80",
+      url: "images/hero3.jpeg",
       alt: "Kingston Complex exterior",
     },
   ],
@@ -78,7 +78,7 @@ export const about = {
   // Unsplash — free for commercial use, no attribution required.
   // Photo by Raymond Yeung: https://unsplash.com/photos/Wzo_34cS5bA
   image: {
-    url: "https://images.unsplash.com/photo-1744561249162-c597c1670032?auto=format&fit=crop&w=1000&q=80",
+    url: "images/about.png",
     alt: "Warm dining and bar area at Kingston Complex",
   },
 };
@@ -180,43 +180,61 @@ export const restaurantPage = {
     url: "https://images.unsplash.com/photo-1606728035253-49e8a23146de?auto=format&fit=crop&w=1400&q=80",
     alt: "A dish served at the Kingston Complex restaurant",
   },
-  menu: [
+  teaImage: {
+    url: "https://images.unsplash.com/photo-1498604636225-6b87a314baa0?auto=format&fit=crop&w=900&q=80",
+    alt: "A cup of tea at Kingston Complex",
+  },
+  mainsImage: {
+    url: "https://images.unsplash.com/photo-1634324092526-91f5e878b72f?auto=format&fit=crop&w=900&q=80",
+    alt: "Pilau rice with meat and vegetables",
+  },
+  categories: [
     {
-      category: "Breakfast",
+      name: "Hot Beverages & Snacks",
       items: [
-        { name: "Tea & mandazi", price: "KSh 100" },
-        { name: "Eggs, sausage & toast", price: "KSh 300" },
-        { name: "Porridge", price: "KSh 100" },
+        { name: "Tea", price: "KSh 40" },
+        { name: "Special Tea", price: "KSh 70" },
+        { name: "Black Tea", price: "KSh 30" },
+        { name: "Lemon Tea", price: "KSh 50" },
+        { name: "Black Nescafe", price: "KSh 40" },
+        { name: "White Nescafe", price: "KSh 100" },
+        { name: "Milo Black", price: "KSh 40" },
+        { name: "White Milo", price: "KSh 100" },
+        { name: "Milk (500ml)", price: "KSh 120" },
+        { name: "Milk (200ml)", price: "KSh 60" },
+        { name: "Andazi", price: "KSh 30" },
+        { name: "Chapati", price: "KSh 40" },
+        { name: "Boiled Eggs", price: "KSh 80" },
+        { name: "Spanish Omelette Eggs", price: "KSh 100" },
+        { name: "Fried Eggs", price: "KSh 80" },
+        { name: "Sausage", price: "KSh 70" }, // TODO: price unclear in source photo
+        { name: "Toast Bread", price: "KSh 30" },
+        { name: "Chips", price: "KSh 200" },
       ],
     },
     {
-      category: "Mains",
-      image: {
-        url: "https://images.unsplash.com/photo-1634324092526-91f5e878b72f?auto=format&fit=crop&w=900&q=80",
-        alt: "Pilau rice with meat and vegetables",
-      },
+      name: "Food",
       items: [
-        { name: "Ugali & beef stew", price: "KSh 350" },
-        { name: "Pilau with kachumbari", price: "KSh 400" },
-        { name: "Grilled chicken & chips", price: "KSh 500" },
-        { name: "Fish fillet & rice", price: "KSh 450" },
-        { name: "Chapati & beans", price: "KSh 250" },
+        { name: "Ugali", price: "KSh 50" },
+        { name: "Rice", price: "KSh 100" },
+        { name: "Greens", price: "KSh 50" },
+        { name: "Full Chicken", price: "KSh 1,800" },
+        { name: "Half Chicken", price: "KSh 900" },
+        { name: "¾ Chicken", price: "KSh 450" },
+        { name: "1 KG Meat", price: "KSh 1150" }, // TODO: price unclear in source photo
+        { name: "½ KG Meat", price: "KSh 600" }, // TODO: price unclear in source photo
+        { name: "¼ KG Meat", price: "KSh 300" }, // TODO: price unclear in source photo
       ],
     },
     {
-      category: "Sides",
+      name: "Soft Drinks",
       items: [
-        { name: "Kachumbari", price: "KSh 50" },
-        { name: "Sukuma wiki", price: "KSh 80" },
-        { name: "Chips", price: "KSh 150" },
-      ],
-    },
-    {
-      category: "Drinks (non-alcoholic)",
-      items: [
-        { name: "Soda", price: "KSh 80" },
-        { name: "Fresh juice", price: "KSh 150" },
-        { name: "Water (500ml)", price: "KSh 50" },
+        { name: "Delmonte", price: "KSh 350" },
+        { name: "Soda (500ml)", price: "KSh 120" },
+        { name: "Soda (300ml)", price: "KSh 80" },
+        { name: "Afia Juice", price: "KSh 100" }, // TODO: name + price unclear in source photo
+        { name: "Minute Maid", price: "KSh 100" },
+        { name: "Predator", price: "KSh 80" }, // TODO: name + price unclear in source photo
       ],
     },
   ],
@@ -224,14 +242,14 @@ export const restaurantPage = {
 
 export const barPage = {
   badge: "Bar",
-  heading: "Drinks menu & private events",
-  subheading: "Full menu below. Hosting a private function? Reserve the whole bar for your group.",
+  heading: "Drinks & private events",
+  subheading: "Hosting a private function? Reserve the whole bar for your group.",
   bannerImage: {
-    url: "https://images.unsplash.com/photo-1759164707340-cca5eb4a6d42?auto=format&fit=crop&w=1400&q=80",
+    url: "images/bar.jpeg",
     alt: "Two glasses of beer on the bar counter at Kingston Complex",
   },
   reserveImage: {
-    url: "https://images.unsplash.com/photo-1761936513630-7553a70f292c?auto=format&fit=crop&w=900&q=80",
+    url: "images/bar.jpeg",
     alt: "The bar counter at Kingston Complex",
   },
   menu: [
@@ -275,7 +293,7 @@ export const conference = {
   ctaHref: "/conference",
   // Unsplash — free for commercial use, no attribution required.
   image: {
-    url: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=1000&q=80",
+    url: "images/hero2.jpeg",
     alt: "The conference hall at Kingston Complex",
   },
 };
@@ -303,10 +321,10 @@ export const accommodation = {
       description:
         "A simple, clean room for a quick overnight stop — everything needed for a comfortable rest before getting back on the road.",
       image: {
-        url: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+        url: "images/room2.jpeg",
         alt: "Standard room at Kingston Complex",
       },
-      amenities: ["shower", "water", "breakfast"],
+      amenities: ["Hot shower", "water", "breakfast", "tv", "desk"],
       featured: false,
     },
     {
@@ -318,10 +336,10 @@ export const accommodation = {
       description:
         "The most booked tier — a bit more space, a TV to unwind, and breakfast included in the morning before checkout.",
       image: {
-        url: "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&w=800&q=80",
+        url: "images/hero3.jpeg",
         alt: "Deluxe room at Kingston Complex",
       },
-      amenities: ["shower", "tv", "breakfast"],
+      amenities: ["Hot shower", "water", "breakfast", "tv", "desk"],
       featured: true,
     },
     {
@@ -333,10 +351,10 @@ export const accommodation = {
       description:
         "The largest room, with a work desk for anyone stopping through on business — ideal for a longer stay or a working trip.",
       image: {
-        url: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
+        url: "images/room3.jpeg",
         alt: "Executive room at Kingston Complex",
       },
-      amenities: ["shower", "tv", "breakfast", "desk"],
+      amenities: ["Hot shower", "water", "breakfast", "tv", "desk"],
       featured: false,
     },
   ],
